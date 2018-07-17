@@ -123,30 +123,49 @@ const store = createStore(
   })
 );
 
+//timestamps in milliseconds
+/** January 1st 1970 (unix epoch - start of time in js)  */
+
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses.filter(expense => {
+    const startDateMatch =
+      typeof startDate !== "number" || expense.createdAt >= startDate;
+    const endDateMatch =
+      typeof endDate !== "number" || expense.createdAt <= endDate;
+
+    const textMatch = expense.description
+      .toLowerCase()
+      .includes(text.toLowerCase());
+    return startDateMatch && endDateMatch && textMatch;
+  });
+};
+
 store.subscribe(() => {
-  console.log(store.getState());
+  const state = store.getState();
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+  console.log(visibleExpenses);
 });
 
-// const expenseOne = store.dispatch(
-//   addExpense({ description: "Rent", amount: 100 })
-// );
-// const expenseTwo = store.dispatch(
-//   addExpense({ description: "Coffee", amount: 300 })
-// );
+const expenseOne = store.dispatch(
+  addExpense({ description: "Rent", amount: 100, createdAt: 1000 })
+);
+const expenseTwo = store.dispatch(
+  addExpense({ description: "Coffee", amount: 300, createdAt: -300 })
+);
 
 // store.dispatch(removeExpense({ id: expenseOne.expenses.id }));
 
 // store.dispatch(editExpense(expenseTwo.expenses.id, { amount: 500 }));
 
-// store.dispatch(setTextFilter("Shit"));
+store.dispatch(setTextFilter("Rent"));
 // store.dispatch(setTextFilter());
 
 // store.dispatch(sortByAmount());
 // store.dispatch(sortByDate());
 
-store.dispatch(setStartDate(125));
-store.dispatch(setStartDate());
-store.dispatch(setEndDate(3244));
+//store.dispatch(setStartDate("2000"));
+// store.dispatch(setStartDate());
+// store.dispatch(setEndDate(3244));
 
 const demoState = {
   expenses: [
