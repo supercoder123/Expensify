@@ -33,7 +33,7 @@ const storeReturned = store.getState();
 console.log(visibleExpenses(storeReturned.expenses, storeReturned.filters));
 
 setTimeout(() => {
-  store.dispatch(setTextFilter("rent"));
+  store.dispatch(setTextFilter("bill"));
 }, 3000);
 
 const jsx = (
