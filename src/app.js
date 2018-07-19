@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import AppRouter from "./routers/AppRouter";
+import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
@@ -31,4 +32,14 @@ store.dispatch(setTextFilter("water"));
 const storeReturned = store.getState();
 console.log(visibleExpenses(storeReturned.expenses, storeReturned.filters));
 
-ReactDOM.render(AppRouter, document.getElementById("app"));
+setTimeout(() => {
+  store.dispatch(setTextFilter("rent"));
+}, 3000);
+
+const jsx = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
+
+ReactDOM.render(jsx, document.getElementById("app"));

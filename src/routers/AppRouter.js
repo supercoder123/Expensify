@@ -7,7 +7,8 @@ import NotFoundPage from "../components/NotFoundPage";
 import AddExpensePage from "../components/AddExpensePage";
 import ExpenseDashboardPage from "../components/ExpenseDashboardPage";
 
-const AppRouter = ( //path is optional attribute for route
+const AppRouter = () => (
+  //path is optional attribute for route
   <BrowserRouter>
     <div>
       <Header />
