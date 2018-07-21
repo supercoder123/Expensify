@@ -1,10 +1,18 @@
 import React from "react";
+import moment from "moment";
+import { SingleDatePicker } from "react-dates";
+import "react-dates/lib/css/_datepicker.css";
+
+const now = moment();
+console.log(now.format("Do MMM, YYYY"));
 
 class ExpenseForm extends React.Component {
   state = {
     description: "",
     note: "",
-    amount: ""
+    amount: "",
+    createdAt: moment(),
+    calendarFocused: false
   };
 
   onDescriptionChange = e => {
@@ -19,12 +27,19 @@ class ExpenseForm extends React.Component {
 
   onAmountChange = e => {
     const amount = e.target.value;
-    ///^\d+(\.\d+)?$/
-    ///^\d*(\.\d{0,2})?$/
-    ///^\d{1,}(\.\d{0,2})?$/
     if (amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
       this.setState(() => ({ amount }));
     }
+  };
+
+  onDateChange = createdAt => {
+    this.setState(() => ({ createdAt }));
+  };
+
+  onFocusChange = ({ focused }) => {
+    this.setState(() => ({
+      calendarFocused: focused
+    }));
   };
 
   render() {
@@ -43,6 +58,14 @@ class ExpenseForm extends React.Component {
             placeholder="Amount"
             value={this.state.amount}
             onChange={this.onAmountChange}
+          />
+          <SingleDatePicker
+            date={this.state.createdAt}
+            onDateChange={this.onDateChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={day => false}
           />
           <textarea
             placeholder="Add a note for your expense"
