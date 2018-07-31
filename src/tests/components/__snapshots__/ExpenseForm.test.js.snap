@@ -204,7 +204,7 @@ exports[`should render Expense Form with expense passed 1`] = `
 </div>
 `;
 
-exports[`should render errot for invlaid form submission 1`] = `
+exports[`should render error for invlaid form submission 1`] = `
 <div>
   <p>
     Please provide description and amount!!
