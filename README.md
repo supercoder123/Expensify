@@ -9,4 +9,5 @@
  - [ ] Write installation instructions.
  - [ ] Finish styling the application.
  - [ ] Add screenshots.
+ - [ ] deploy
  
